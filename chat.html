@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Chat Support</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #e60000;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .chat-box {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .chat-header {
+            background: #e60000;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .chat-body {
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+        }
+        .chat-footer {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+        .chat-footer input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+        }
+        .chat-footer button {
+            background: #e60000;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .notification {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: #e60000;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <button class="chat-button" onclick="toggleChat()">💬</button>
+    <div class="chat-box" id="chatBox">
+        <div class="chat-header">Chat Support</div>
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <div class="notification" id="notification">New message received!</div>
+
+    <script>
+        function toggleChat() {
+            var chatBox = document.getElementById("chatBox");
+            chatBox.style.display = chatBox.style.display === "none" ? "block" : "none";
+        }
+
+        function sendMessage() {
+            var input = document.getElementById("chatInput");
+            var message = input.value.trim();
+            if (message) {
+                var chatBody = document.getElementById("chatBody");
+                var newMessage = document.createElement("div");
+                newMessage.textContent = "You: " + message;
+                chatBody.appendChild(newMessage);
+                input.value = "";
+                chatBody.scrollTop = chatBody.scrollHeight;
+                showNotification();
+            }
+        }
+
+        function showNotification() {
+            var notification = document.getElementById("notification");
+            notification.style.display = "block";
+            setTimeout(function() {
+                notification.style.display = "none";
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
